@@ -1,0 +1,29 @@
+.has-contact-overlay { overflow: hidden; }
+.contact-overlay { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 10px; }
+.contact-overlay__backdrop { position: absolute; inset: 0; width: 100%; border: 0; background: rgba(17, 24, 39, .64); cursor: default; }
+.contact-overlay__panel { position: relative; width: min(100%, 760px); max-height: calc(100vh - 20px); overflow-y: auto; padding: 27px 21px; background: var(--background); border-radius: 14px; box-shadow: 0 24px 75px rgba(0, 0, 0, .25); }
+.contact-overlay__header { display: flex; align-items: start; justify-content: space-between; }
+.contact-overlay__header .eyebrow { margin-bottom: 0; }
+.contact-overlay__close { display: grid; width: 36px; height: 36px; margin: -8px -8px 0 0; place-items: center; border: 1px solid var(--border); border-radius: 50%; color: var(--text); background: #fff; font: 400 27px/1 sans-serif; cursor: pointer; }
+.contact-overlay h2 { max-width: 560px; margin-top: 0px; font-size: clamp(36px, 5vw, 57px); }
+.contact-overlay__intro { margin-top: 12px; color: var(--muted); }
+.contact-overlay__tabs { display: flex; gap: 8px; margin: 28px 0 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.contact-overlay__tabs button { padding: 9px 0; border: 0; border-bottom: 2px solid transparent; color: var(--muted); background: transparent; font: 700 12px/1 "DM Sans", sans-serif; text-transform: uppercase; cursor: pointer; }
+.contact-overlay__tabs button + button { margin-left: 18px; }
+.contact-overlay__tabs .is-active { border-bottom-color: var(--accent); color: var(--accent); }
+.contact-form { display: grid; gap: 17px; }
+.contact-form__row { display: grid; grid-template-columns: 1fr; gap: 17px; }
+.contact-form label { display: grid; gap: 7px; color: #495263; font-size: 12px; font-weight: 700; }
+.contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: 12px 13px; border: 1px solid #d9deda; border-radius: 8px; color: var(--text); background: #fff; font: 400 16px/1.45 "DM Sans", sans-serif; resize: vertical; }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--accent); outline: 3px solid rgba(36, 107, 253, .14); }
+.contact-form__honeypot { position: absolute; left: -9999px; }
+.contact-form .button { justify-self: start; margin-top: 4px; cursor: pointer; }
+.contact-form .button:disabled { opacity: .7; cursor: wait; }
+.contact-form__message { margin: -5px 0 0; font-size: 14px; }
+.contact-form__message.is-success { color: #197043; }
+.contact-form__message.is-error { color: #b42318; }
+.contact-calendly { min-height: 510px; }
+.contact-calendly iframe { display: block; width: 100%; min-height: 550px; border: 0; border-radius: 8px; background: #fff; }
+.contact-calendly p { color: var(--muted); }
+.contact-calendly code { padding: 2px 5px; border-radius: 4px; color: var(--text); background: #edf0ed; }
+@media (min-width: 601px) { .contact-overlay { padding: 24px; } .contact-overlay__panel { max-height: min(850px, calc(100vh - 48px)); padding: 42px; border-radius: 20px; } .contact-form__row { grid-template-columns: 1fr 1fr; } .contact-calendly { min-height: 520px; } .contact-calendly iframe { min-height: 590px; } }

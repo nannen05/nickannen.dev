@@ -1,0 +1,131 @@
+.pricing {
+  padding: 55px 0;
+  text-align: center;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 33px;
+    text-align: left;
+  }
+
+  &__offer {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 13px;
+    max-width: 700px;
+    margin: 21px auto -5px;
+    padding: 10px 15px 10px 11px;
+    color: #1e4dbc;
+    background: #edf3ff;
+    border: 1px solid #c9dbff;
+    border-radius: 9px;
+    text-align: left;
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+  }
+
+  &__offer-label {
+    flex: 0 0 auto;
+    padding: 5px 7px;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 29px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    &--featured {
+      border: 2px solid var(--accent);
+      box-shadow: 0 16px 40px rgba(36, 107, 253, 0.13);
+    }
+    > small {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    > p {
+      min-height: 45px;
+      margin-top: 20px;
+      color: #485161;
+    }
+    .button {
+      margin-top: auto;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    margin-top: 25px;
+
+    strong {
+      display: block;
+      font: 800 39px/1 Manrope;
+      letter-spacing: -0.08em;
+    }
+
+    span {
+      color: #778194;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: line-through;
+    }
+  }
+
+  &__disclaimer {
+    max-width: 100%;
+    margin: 24px auto 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  &__badge {
+    position: absolute;
+    top: -12px;
+    left: 22px;
+    padding: 5px 9px;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+  }
+  h3 {
+    font-size: 22px;
+  }
+  ul {
+    padding: 0;
+    margin: 18px 0 24px;
+    list-style: none;
+    line-height: 2;
+  }
+  li {
+    // font-size: 12px;
+  }
+}
+@media (min-width: 601px) {
+  .pricing { padding: 88px 0; }
+  .pricing__grid { grid-template-columns: repeat(3, 1fr); }
+  .pricing__offer { align-items: center; }
+  .pricing__card { min-height: 420px; }
+}

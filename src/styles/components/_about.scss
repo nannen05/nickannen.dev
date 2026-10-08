@@ -1,0 +1,110 @@
+.about {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 42px;
+  padding: 15px 0 55px;
+}
+.about__details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 42px;
+}
+.about__details > * {
+  min-width: 0;
+}
+.about h2 {
+  font-size: 40px;
+}
+
+.about > div > p {
+  max-width: 470px;
+  margin-top: 17px;
+  line-height: 1.45;
+}
+.about__experience {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 26px;
+}
+.about__experience strong {
+  color: var(--accent);
+  font: 800 42px/1 Manrope, "DM Sans", sans-serif;
+  letter-spacing: -0.08em;
+}
+.about__experience div {
+  display: grid;
+  gap: 4px;
+}
+.about__experience span {
+  font: 700 18px/1.2 Manrope, "DM Sans", sans-serif;
+  letter-spacing: -0.04em;
+}
+.about__experience small {
+  color: #606060;
+  font-size: 14px;
+}
+.portrait {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #d1e0e2;
+    max-width: 250px;
+}
+.portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+}
+.about__capabilities {
+  width: 100%;
+  margin: 0;
+  // background: var(--surface);
+  // border: 1px solid #dedede;
+  // border-radius: 18px;
+  overflow: hidden;
+}
+.about__capabilities > div {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  gap: 18px;
+  min-height: 0;
+  padding: 20px;
+}
+.about__capabilities > div + div {
+  border-top: 1px solid var(--border);
+}
+.about__capabilities svg {
+  width: 24px;
+  height: 24px;
+  color: #606060;
+  stroke-width: 2;
+}
+.about__capabilities dt {
+  font: 700 19px/1.2 Manrope, "DM Sans", sans-serif;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 601px) {
+  .about { grid-template-columns: 1fr 1fr; padding-bottom: 100px; }
+  .about__details { grid-column: span 2; grid-template-columns: 1fr 1fr; }
+  .about__experience { margin-top: 30px; }
+  .about__experience strong { font-size: 40px; }
+  .about__capabilities { width: min(100%, 350px); }
+  .about__capabilities > div { gap: 24px; min-height: 116px; padding: 20px 10px; }
+  .about__capabilities dt { font-size: 18px; }
+}
+@media (min-width: 901px) {
+  .about { display: flex; justify-content: space-between; }
+  .about > div:first-child { min-width: 450px; }
+  .about__details { display: flex; justify-content: end; align-items: center; gap: 42px; }
+}
+.about__capabilities dd {
+  margin: 7px 0 0;
+  color: #606060;
+  font-size: 14px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}

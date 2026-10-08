@@ -1,0 +1,62 @@
+.logos {
+  padding: 20px 0 30px;
+}
+.logos > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px 27px;
+  margin-top: 17px;
+}
+.logos b {
+  font-family: Manrope;
+  font-size: 15px;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+.logos__pawfy {
+  display: block;
+  width: 60px;
+  height: auto;
+}
+.logos__bettervits {
+  display: block;
+  width: 90px;
+  height: auto;
+}
+.logos__gardencup {
+  display: block;
+  width: 105px;
+  height: auto;
+}
+.logos__show-me-your-mumu {
+  display: block;
+  width: 80px;
+  height: auto;
+}
+.logos__clearly-filtered {
+  display: block;
+  width: 100px;
+  height: auto;
+}
+.logos__mvmt {
+  display: block;
+  width: 82px;
+  height: auto;
+}
+@media (min-width: 601px) {
+  .logos { padding-bottom: 51px; }
+  .logos > div { justify-content: space-around; flex-wrap: nowrap; gap: 0; }
+  .logos b { font-size: 18px; }
+  .logos__pawfy { width: 70px; }
+  .logos__bettervits { width: 105px; }
+  .logos__gardencup { width: 120px; }
+  .logos__show-me-your-mumu { width: 90px; }
+  .logos__clearly-filtered { width: 115px; }
+  .logos__mvmt { width: 92px; }
+}
+.logos span {
+  color: #8c92a0;
+  font-size: 16px;
+}

@@ -1,0 +1,13 @@
+.intro {
+  padding: 28px 0 40px;
+  text-align: center;
+}
+@media (min-width: 601px) { .intro { padding-top: 39px; } }
+.intro h2 {
+  font-size: clamp(37px, 4.35vw, 60px);
+}
+.intro p {
+  max-width: 530px;
+  margin: 18px auto 0;
+  line-height: 1.3;
+}
