@@ -1,5 +1,5 @@
 .pricing {
-  padding: 55px 0;
+  padding: 45px 0 55px;
   text-align: center;
 
   &__grid {
@@ -12,16 +12,17 @@
 
   &__offer {
     display: inline-flex;
-    align-items: flex-start;
-    gap: 13px;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
     max-width: 700px;
     margin: 21px auto -5px;
-    padding: 10px 15px 10px 11px;
+    padding: 21px 15px 23px;
     color: #1e4dbc;
     background: #edf3ff;
     border: 1px solid #c9dbff;
     border-radius: 9px;
-    text-align: left;
+    text-align: center;
 
     p {
       margin: 0;
@@ -123,9 +124,18 @@
     // font-size: 12px;
   }
 }
-@media (min-width: 601px) {
-  .pricing { padding: 88px 0; }
+@media (min-width: 640px) {
+  .pricing { padding: 90px 0; }
+  .pricing__offer {
+    flex-direction: row;
+    align-items: center;
+    gap: 13px;
+    padding: 10px 15px 10px 11px;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1280px) {
   .pricing__grid { grid-template-columns: repeat(3, 1fr); }
-  .pricing__offer { align-items: center; }
   .pricing__card { min-height: 420px; }
 }

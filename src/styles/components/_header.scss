@@ -2,16 +2,18 @@
   position: sticky;
   z-index: 10;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(100% - 32px);
   min-height: 65px;
-  margin: auto;
   background: rgba(250, 250, 248, 0.68);
   backdrop-filter: blur(10px);
 
   .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: inherit;
+    padding: 0 18px;
+    margin: auto;
+
     &__brand {
       display: flex;
       align-items: center;
@@ -50,10 +52,14 @@
   }
 }
 .site-header .button { min-height: 38px; padding: 0 11px; font-size: 10px; min-width: 150px }
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .site-header {
-    width: min(1240px, calc(100% - 48px));
     min-height: 74px;
+
+    .header {
+      width: min(1340px, calc(100% - 80px));
+      padding: 0;
+    }
     .header__identity strong { font-size: 18px; }
     .header__nav { display: flex; }
   }

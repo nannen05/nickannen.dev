@@ -51,7 +51,7 @@ h2 {
   display: none;
 }
 
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .hide-small {
     display: block;
   }
@@ -93,11 +93,11 @@ mark {
   width: calc(100% - 36px);
   margin-inline: auto;
 }
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .section { width: min(100% - 48px, 700px); }
 }
-@media (min-width: 901px) {
-  .section { width: min(1240px, calc(100% - 80px)); }
+@media (min-width: 1024px) {
+  .section { width: min(1340px, calc(100% - 80px)); }
 }
 .eyebrow {
   margin-bottom: 10px;

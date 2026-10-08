@@ -20,7 +20,7 @@
   flex-wrap: wrap;
   gap: 16px;
 }
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .footer { align-items: center; flex-direction: row; gap: 0; }
   .footer > div:last-child { flex-wrap: nowrap; }
 }

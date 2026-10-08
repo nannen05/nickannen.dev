@@ -1,5 +1,5 @@
 .work {
-  padding: 35px 0 46px;
+  padding: 35px 0 0px;
 
   &__header {
     display: flex;
@@ -124,7 +124,9 @@
     align-self: center;
     justify-self: center;
     width: calc(100% - 32px);
-    height: 250px;
+    // Let the screenshot determine the preview height on narrow screens. A
+    // fixed-height viewport has a different aspect ratio from several source
+    // images, which makes them look cropped or leaves awkward empty space.
     margin: 0 16px 16px;
     overflow: hidden;
     background: #f5f6f8;
@@ -170,24 +172,17 @@
   }
 
   &__viewport {
-    display: grid;
-    flex: 1;
-    min-height: 0;
+    display: block;
     overflow: hidden;
     background: #fff;
     position: relative;
   }
 
   img {
-    position: absolute;
-    inset: 0;
     display: block;
     width: 100%;
-    height: 100%;
     max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    object-position: center top;
+    height: auto;
     opacity: 0;
     transition: opacity 0.55s ease;
   }
@@ -230,13 +225,33 @@
     }
   }
 }
-@media (min-width: 601px) {
-  .work { padding: 52px 0 94px; }
+@media (min-width: 640px) {
+  .work { padding: 52px 0 0px; }
   .work__header { align-items: end; }
   .work__header > a { display: block; }
   .project-card { grid-template-columns: 41% 59%; }
   .project-card__info { padding: 30px 20px; }
   .project-card__info h3 { font-size: 23px; }
-  .project-preview { width: calc(100% - 44px); height: 226px; margin: 0; }
+  .project-preview {
+    width: calc(100% - 44px);
+    height: 244px;
+    max-width: 344px;
+    margin: 0;
+
+    &__viewport {
+      display: grid;
+      flex: 1;
+      min-height: 0;
+    }
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
+    }
+  }
 }
-@media (min-width: 901px) { .work__projects { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1280px) { .work__projects { grid-template-columns: 1fr 1fr; } }

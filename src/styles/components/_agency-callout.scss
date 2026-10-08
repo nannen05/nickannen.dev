@@ -51,11 +51,11 @@
   line-height: 1.28;
   letter-spacing: -0.02em;
 }
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .agency { width: min(100% - 48px, 700px); padding: 50px 62px; }
   .agency h2 { font-size: 42px; }
   .agency__benefits { grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; }
 }
-@media (min-width: 901px) {
-  .agency { grid-template-columns: 1fr 1fr; gap: 44px; width: min(1240px, calc(100% - 80px)); }
+@media (min-width: 1024px) {
+  .agency { grid-template-columns: 1fr 1fr; gap: 44px; width: min(1340px, calc(100% - 80px)); }
 }

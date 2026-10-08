@@ -26,4 +26,4 @@
 .contact-calendly iframe { display: block; width: 100%; min-height: 550px; border: 0; border-radius: 8px; background: #fff; }
 .contact-calendly p { color: var(--muted); }
 .contact-calendly code { padding: 2px 5px; border-radius: 4px; color: var(--text); background: #edf0ed; }
-@media (min-width: 601px) { .contact-overlay { padding: 24px; } .contact-overlay__panel { max-height: min(850px, calc(100vh - 48px)); padding: 42px; border-radius: 20px; } .contact-form__row { grid-template-columns: 1fr 1fr; } .contact-calendly { min-height: 520px; } .contact-calendly iframe { min-height: 590px; } }
+@media (min-width: 640px) { .contact-overlay { padding: 24px; } .contact-overlay__panel { max-height: min(850px, calc(100vh - 48px)); padding: 42px; border-radius: 20px; } .contact-form__row { grid-template-columns: 1fr 1fr; } .contact-calendly { min-height: 520px; } .contact-calendly iframe { min-height: 590px; } }

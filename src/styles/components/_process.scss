@@ -1,5 +1,5 @@
 .process {
-  padding: 55px 0;
+  padding: 55px 0 45px;
 }
 .process > div {
   display: grid;
@@ -9,7 +9,6 @@
 }
 .process article {
   position: relative;
-  padding-right: 32px;
 }
 .process article:not(:last-child):after {
   position: absolute;
@@ -33,11 +32,18 @@
   transform: rotate(45deg);
   display: none;
 }
-@media (min-width: 601px) {
-  .process { padding: 82px 0; }
+@media (min-width: 640px) {
+  .process { padding: 90px 0; }
+}
+
+@media (min-width: 1280px) {
   .process > div { grid-template-columns: repeat(4, 1fr); gap: 0; }
   .process article:not(:last-child):after,
   .process article:not(:last-child):before { display: block; }
+  .process article {
+  position: relative;
+  padding-right: 32px;
+}
 }
 .process span {
   display: grid;

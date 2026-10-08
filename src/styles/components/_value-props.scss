@@ -12,13 +12,17 @@
 .value article {
   padding: 18px 0;
   border-bottom: 1px solid var(--border);
+
+  &:last-child {
+    border-bottom: 0;
+  }
 }
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .value { padding: 72px 0 80px; text-align: center; }
   .value__grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 37px; }
   .value article { padding: 20px 10px; border-bottom: 0; }
 }
-@media (min-width: 901px) { .value__grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .value__grid { grid-template-columns: repeat(4, 1fr); } }
 .value__icon {
   display: inline-grid;
   width: 36px;

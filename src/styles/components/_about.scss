@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 42px;
-  padding: 15px 0 55px;
+  padding: 0px 0 35px;
 }
 .about__details {
   display: grid;
@@ -87,7 +87,7 @@
   letter-spacing: -0.04em;
   overflow-wrap: anywhere;
 }
-@media (min-width: 601px) {
+@media (min-width: 640px) {
   .about { grid-template-columns: 1fr 1fr; padding-bottom: 100px; }
   .about__details { grid-column: span 2; grid-template-columns: 1fr 1fr; }
   .about__experience { margin-top: 30px; }
@@ -96,7 +96,7 @@
   .about__capabilities > div { gap: 24px; min-height: 116px; padding: 20px 10px; }
   .about__capabilities dt { font-size: 18px; }
 }
-@media (min-width: 901px) {
+@media (min-width: 1024px) {
   .about { display: flex; justify-content: space-between; }
   .about > div:first-child { min-width: 450px; }
   .about__details { display: flex; justify-content: end; align-items: center; gap: 42px; }

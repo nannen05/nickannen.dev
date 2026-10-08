@@ -20,8 +20,8 @@
   letter-spacing: -0.07em;
   color: var(--accent);
 }
-@media (min-width: 601px) {
-  .stats { grid-template-columns: repeat(4, 1fr); gap: 0; padding-bottom: 65px; }
+@media (min-width: 640px) {
+  .stats { grid-template-columns: repeat(4, 1fr); gap: 0; padding-bottom: 45px; }
   .stats div { padding: 0 30px; }
   .stats div:nth-child(3) { border-left: 1px solid var(--border); }
   .stats strong { font-size: 38px; }

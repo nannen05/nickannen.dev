@@ -1,13 +1,30 @@
 .logos {
   padding: 20px 0 30px;
 }
-.logos > div {
+.logos__rail {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 20px 27px;
+  gap: 12px;
   margin-top: 17px;
+  margin-right: -18px;
+  overflow-x: auto;
+  padding: 2px 18px 10px 0;
+  scroll-padding-left: 1px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.logos__rail::-webkit-scrollbar { display: none; }
+.logos__item {
+  align-items: center;
+  background: #f5f5f4;
+  border-radius: 10px;
+  display: flex;
+  flex: 0 0 136px;
+  height: 72px;
+  justify-content: center;
+  scroll-snap-align: start;
 }
 .logos b {
   font-family: Manrope;
@@ -45,9 +62,21 @@
   width: 82px;
   height: auto;
 }
-@media (min-width: 601px) {
+@media (min-width: 1024px) {
   .logos { padding-bottom: 51px; }
-  .logos > div { justify-content: space-around; flex-wrap: nowrap; gap: 0; }
+  .logos__rail {
+    justify-content: space-around;
+    gap: 0;
+    margin-right: 0;
+    overflow: visible;
+    padding: 0;
+  }
+  .logos__item {
+    background: transparent;
+    border-radius: 0;
+    flex: 0 1 auto;
+    height: auto;
+  }
   .logos b { font-size: 18px; }
   .logos__pawfy { width: 70px; }
   .logos__bettervits { width: 105px; }
@@ -59,4 +88,9 @@
 .logos span {
   color: #8c92a0;
   font-size: 16px;
+}
+.logos__more {
+  color: #8c92a0;
+  font-size: 16px;
+  white-space: nowrap;
 }
