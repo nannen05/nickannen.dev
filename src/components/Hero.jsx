@@ -30,7 +30,7 @@ export default function Hero() {
           built for <MarkReveal>growth.</MarkReveal>
         </h1>
         <p className="hero__lead">
-          I turn CRO experiments, landing pages, and custom storefront ideas into production-ready high-converting Shopify experiences.
+          I turn CRO experiments, landing pages, and custom storefront ideas into conversion-focused Shopify experiences.
         </p>
         {/* <p className="hero__capabilities">
           A/B tests. Landing pages. PDPs. Bundles. Subscriptions. Custom
