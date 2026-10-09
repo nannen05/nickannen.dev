@@ -138,7 +138,7 @@
 @media (min-width: 1280px) {
   .pricing__grid { grid-template-columns: repeat(3, 1fr); }
   .pricing__card { min-height: 420px; padding: 30px;  }
-   .pricing strong {
+  .pricing__card strong {
       display: block;
       font: 800 40px/1 Manrope;
       letter-spacing: -0.08em;
