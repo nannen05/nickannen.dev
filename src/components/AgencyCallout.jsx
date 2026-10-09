@@ -25,9 +25,7 @@ export default function AgencyCallout() {
       <div>
         <Eyebrow>FOR CRO &amp; GROWTH AGENCIES</Eyebrow>
         <h2>
-          Need another developer
-          <br />
-          without another hire?
+          Need another developer<br className="hide-small" /> without another hire?
         </h2>
         <p>
           I work behind the scenes with CRO and growth agencies, turning experiment backlogs, Figma designs, and Shopify requirements into production-ready experiences — without adding another full-time developer.
