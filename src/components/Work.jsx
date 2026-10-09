@@ -69,11 +69,11 @@ function ProjectCard({ project }) {
         <p>{project.description}</p>
         {slides.length > 1 && (
           <div className="project-card__gallery-index" aria-label={`${project.client} gallery pages`}>
-            <span>Gallery</span>
+            <span>Explore the build</span>
             {slides.map(([label], index) => (
               <button
                 className={index === activeSlide ? "is-active" : ""}
-                key={label}
+                key={`${project.client}-${index}`}
                 type="button"
                 onClick={() => navigateToSlide(index, true)}
               >
@@ -94,10 +94,13 @@ export default function Work() {
         <div>
           <Eyebrow>SELECTED WORK</Eyebrow>
           <h2>
-            Real Shopify experiences
+            A closer look at Shopify work
             <br />
             built for <MarkReveal>real brands.</MarkReveal>
           </h2>
+          <p className="work__intro">
+            A selection of storefront features, test variations, and custom purchase experiences. Use the labels on each project to see what was built.
+          </p>
         </div>
         {/* <a href="#contact">
           View all work <Arrow />

@@ -4,7 +4,7 @@ export const projects = [
     title: "PDP, A/B Testing & Landing Pages",
     tags: ["Shopify", "CRO", "A/B Testing"],
     description:
-      "Purchase flows, subscription experiments and a CMS-powered comparison page built for conversion.",
+      "Built a product-page test variation, subscription purchase flows, and a CMS-powered comparison page for the growth team.",
     preview: "bettervits",
     tone: "blue",
     links: [
@@ -20,27 +20,27 @@ export const projects = [
     ],
     gallery: [
       [
-        "Current PDP",
+        "Live product page",
         "https://bettervits.co.uk/products/nmn-complex",
         "bettervits-current",
       ],
       [
-        "PDP A/B test variant",
+        "Product page test variation",
         "https://bettervits.co.uk/products/nmn-complex?preview_theme_id=193724481918",
         "bettervits-ab-test",
       ],
       [
-        "A/B Funnel flow (30 Day Selected)",
+        "30-day offer funnel",
         "https://offer.bettervits.co.uk/pdp-fresh-nmn",
         "bettervits-nmn",
       ],
       [
-        "A/B Funnel flow (90 Day Selected)",
+        "90-day offer funnel",
         "https://offer.bettervits.co.uk/pdp-fresh-nmn-b",
         "bettervits-nmn-90-day",
       ],
       [
-        "Builder.io Landing page",
+        "Comparison landing page",
         "https://comparison.bettervits.co.uk/best-nmn-supplements",
         "bettervits-comparison",
       ],
@@ -51,7 +51,7 @@ export const projects = [
     title: "PDP, Bundles & A/B Testing",
     tags: ["Shopify", "Subscriptions", "CRO"],
     description:
-      "Tested purchase experiences, a custom four-product bundle builder, and parallel paid funnels.",
+      "Built a PDP test variation, a four-product bundle builder, and several paid-media funnel versions.",
     preview: "pawfy",
     tone: "sand",
     links: [
@@ -67,42 +67,42 @@ export const projects = [
     ],
     gallery: [
       [
-        "Current PDP",
+        "Live product page",
         "https://pawfy.com/products/allergy-immune",
         "pawfy-current",
       ],
       [
-        "PDP A/B test variant",
+        "Product page test variation",
         "https://pawfy.com/products/allergy-immune?preview_theme_id=145858199726",
         "pawfy-pdp",
       ],
       [
-        "Bundle builder",
+        "Build-your-own bundle",
         "https://pawfy.com/pages/bundles?preview_theme_id=149960949934",
         "pawfy-bundles",
       ],
       [
-        "Offer funnel — version 1",
+        "Paid offer funnel — V1",
         "https://offer.pawfy.com/pdp-fresh-aic",
         "pawfy-funnel-one",
       ],
       [
-        "Offer funnel — version 2",
+        "Paid offer funnel — V2",
         "https://offer.pawfy.com/pdp-fresh-aic-v2",
         "pawfy-funnel-two",
       ],
       [
-        "Offer funnel — version 3",
+        "Paid offer funnel — V3",
         "https://offer.pawfy.com/pdp-fresh-aic-v3",
         "pawfy-funnel-three",
       ],
       [
-        "A/B Funnel flow (30 Day Selected)",
+        "30-day subscription funnel",
         "https://offer.pawfy.com/pdp-fresh-mtc",
         "pawfy-mtc",
       ],
       [
-        "A/B Funnel flow (30 Day Selected)",
+        "90-day subscription funnel",
         "https://offer.pawfy.com/pdp-fresh-mtc-b",
         "pawfy-mtc-90-day",
       ],
@@ -113,7 +113,7 @@ export const projects = [
     title: "Custom Bundle Builder",
     tags: ["Shopify", "Bundles", "Recharge"],
     description:
-      "A configurable salad-pack builder with a custom add-to-cart flow and Recharge subscription integration.",
+      "A configurable salad-pack builder with custom add-to-cart logic and a Recharge subscription integration.",
     preview: "gardencup",
     tone: "cream",
     links: [
@@ -124,12 +124,12 @@ export const projects = [
     ],
     gallery: [
       [
-        "Salad pack builder",
+        "Build-your-own salad pack",
         "https://gardencup.com/products/salad-pack-builder",
         "gardencup-builder",
       ],
       [
-        "Custom homepage development",
+        "Custom homepage",
         "https://gardencup.com/",
         "gardencup-homepage",
       ],
@@ -140,7 +140,7 @@ export const projects = [
     title: "Headless Shopify Storefront",
     tags: ["Headless Shopify", "Collections", "Subscriptions"],
     description:
-      "Reusable storefront components, filtering, a slide-out cart and subscription management for a custom Shopify build.",
+      "A custom headless storefront with reusable components, product filtering, a slide-out cart, and subscription management.",
     preview: "clearly-filtered",
     tone: "peach",
     links: [
@@ -151,14 +151,14 @@ export const projects = [
       ],
     ],
     gallery: [
-      ["Storefront", "https://clearlyfiltered.com/", "clearly-filtered-store"],
+      ["Headless storefront", "https://clearlyfiltered.com/", "clearly-filtered-store"],
       [
-        "Shop all collection",
+        "Shop-all collection",
         "https://clearlyfiltered.com/collections/shop-all",
         "clearly-filtered-collection",
       ],
       [
-        "Slide-out cart",
+        "Slide-out cart & subscriptions",
         "https://clearlyfiltered.com/",
         "clearly-filtered-slide-out-cart",
       ],

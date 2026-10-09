@@ -20,6 +20,14 @@
     grid-template-columns: 1fr;
     gap: 18px;
   }
+
+  &__intro {
+    max-width: 520px;
+    margin-top: 13px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
 }
 
 .project-card {
@@ -168,6 +176,9 @@
       line-height: 1;
       text-overflow: ellipsis;
       white-space: nowrap;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: none;
     }
   }
 

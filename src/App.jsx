@@ -12,6 +12,7 @@ import Stats from "./components/Stats";
 import ValueProps from "./components/ValueProps";
 import Work from "./components/Work";
 import ContactOverlay from "./components/ContactOverlay";
+import ExperimentResults from "./components/ExperimentResults";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Intro />
         <Stats />
         <Work />
+        <ExperimentResults />
         <ValueProps />
         <Services />
         <Pricing />
