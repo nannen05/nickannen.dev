@@ -95,7 +95,7 @@ export default function Work() {
           <Eyebrow>SELECTED WORK</Eyebrow>
           <h2>
             A closer look at Shopify work
-            <br />
+            <br className="hide-small" />
             built for <MarkReveal>real brands.</MarkReveal>
           </h2>
           <p className="work__intro">
