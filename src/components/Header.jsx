@@ -93,6 +93,12 @@ export default function Header() {
             {label}
           </a>
         ))}
+        <div className="mobile-navigation__detail">
+          <p>SHOPIFY CRO &amp; GROWTH DEVELOPMENT</p>
+          <span>
+            Helping ambitious Shopify brands turn more traffic into revenue.
+          </span>
+        </div>
       </nav>
     </>
   );
