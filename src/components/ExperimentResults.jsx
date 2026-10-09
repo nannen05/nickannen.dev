@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BarChart3, ChevronLeft, ChevronRight, CodeXml, FlaskConical, UsersRound } from "lucide-react";
 import { experiments } from "../data/experiments";
-import { Button, Eyebrow } from "./ui";
+import { Arrow, Button, Eyebrow, MarkReveal } from "./ui";
 
 const featureRows = [
   [FlaskConical, "Intelligems Expertise", "Hands-on experience developing, launching, and QA testing Intelligems experiments."],
@@ -153,14 +153,14 @@ export default function ExperimentResults() {
     <section id="results" className="experiments section" aria-labelledby="experiments-title">
       <div className="experiments__intro">
         <Eyebrow>REAL EXPERIMENTS. MEASURABLE RESULTS.</Eyebrow>
-        <h2 id="experiments-title">Built to test.<br />Proven to perform.</h2>
+        <h2 id="experiments-title">Built to test.<br />Proven to <MarkReveal>perform.</MarkReveal></h2>
         <p className="experiments__summary">A look at real Intelligems experiments I&apos;ve developed and helped bring to production. From purchase experiences to subscription flows, I build and launch Shopify variations that help growth teams turn ideas into measurable outcomes.</p>
         <div className="experiments__features">
           {featureRows.map(([Icon, title, description]) => <div className="experiments__feature" key={title}>
             <span><Icon aria-hidden="true" /></span><p><strong>{title}</strong>{description}</p>
           </div>)}
         </div>
-        <Button>Let&apos;s talk about your experiments <span aria-hidden="true">→</span></Button>
+        <Button>Let&apos;s talk about your experiments <Arrow /></Button>
       </div>
       <ExperimentCarousel />
     </section>

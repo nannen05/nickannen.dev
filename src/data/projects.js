@@ -44,6 +44,11 @@ export const projects = [
         "https://comparison.bettervits.co.uk/best-nmn-supplements",
         "bettervits-comparison",
       ],
+      [
+        "Nutrition Review landing page",
+        "https://comparison.bettervits.co.uk/best-probiotic-supplements",
+        "bettervits-nutrition-review",
+      ],
     ],
   },
   {
@@ -216,7 +221,7 @@ export const pricing = [
       "Responsive and functional QA",
       "Launch support",
     ],
-    cta: "Start a project →",
+    cta: "Start a project",
   },
   {
     name: "Development Sprint",
@@ -229,7 +234,7 @@ export const pricing = [
       "Direct collaboration and updates",
       "QA and launch support",
     ],
-    cta: "Start a project →",
+    cta: "Start a project",
   },
   {
     name: "Growth Development Partner",
@@ -243,7 +248,7 @@ export const pricing = [
       "Continuous experiments and improvements",
       "Dedicated development partnership",
     ],
-    cta: "Let's talk →",
+    cta: "Let's talk",
   },
 ];
 

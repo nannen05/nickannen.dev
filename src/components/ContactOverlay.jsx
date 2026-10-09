@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Arrow } from "./ui";
 
 const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL || "";
 const CONTACT_FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || "";
@@ -96,7 +97,7 @@ export default function ContactOverlay() {
             </select></label>
             <label>What do you need help with?<textarea name="message" rows="5" placeholder="A quick outline of the project, goals, and scope." required /></label>
             <label className="contact-form__honeypot" aria-hidden="true">Company<input name="company" tabIndex="-1" autoComplete="off" /></label>
-            <button className="button" type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Send project brief →"}</button>
+            <button className="button" type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : <>Send project brief <Arrow /></>}</button>
             {status === "success" && <p className="contact-form__message is-success">Thanks — I’ll get back to you shortly.</p>}
             {status === "error" && <p className="contact-form__message is-error">Something went wrong. Please try again or book a call instead.</p>}
             {status === "missing-endpoint" && <p className="contact-form__message is-error">The contact form is being connected. Please book a call for now.</p>}

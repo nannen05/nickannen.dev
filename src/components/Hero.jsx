@@ -1,13 +1,13 @@
-import { Arrow, Button, Eyebrow, MarkReveal } from "./ui";
+import { Arrow, Button, DownArrow, Eyebrow, MarkReveal } from "./ui";
 
 function MumuTemplatePreview() {
   return (
     <div className="mumu-preview" aria-label="Show Me Your Mumu storefront previews">
-      <a className="mumu-template mumu-template--shop" href="https://showmeyourmumu.com/" target="_blank" rel="noreferrer" aria-label="Open the Show Me Your Mumu storefront">
+      <a className="mumu-template mumu-template--shop" href="#" target="_blank" rel="noreferrer" aria-label="Open the Show Me Your Mumu storefront">
         <img src="/work/show-me-your-mumu-shop-desktop.png" alt="Show Me Your Mumu Shopify storefront" fetchPriority="high" />
       </a>
 
-      <a className="mumu-template mumu-template--weddings" href="https://showmeyourmumu.com/?view=weddings" target="_blank" rel="noreferrer" aria-label="Open the Show Me Your Mumu weddings storefront">
+      <a className="mumu-template mumu-template--weddings" href="#" target="_blank" rel="noreferrer" aria-label="Open the Show Me Your Mumu weddings storefront">
         <img src="/work/show-me-your-mumu-weddings-desktop.png" alt="Show Me Your Mumu weddings Shopify storefront" loading="lazy" decoding="async" />
       </a>
 
@@ -41,7 +41,7 @@ export default function Hero() {
             Start a project <Arrow />
           </Button>
           <Button secondary href="#work">
-            See my work ↓
+            See my work <DownArrow />
           </Button>
         </div>
         <p className="hero__availability">

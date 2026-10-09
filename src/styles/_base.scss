@@ -57,6 +57,12 @@ h2 {
   }
 }
 
+@media (min-width: 640px) {
+  .hide-desktop {
+    display: none;
+  }
+}
+
 mark {
   color: var(--accent);
   background: none;

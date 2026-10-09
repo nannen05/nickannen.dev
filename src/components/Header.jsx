@@ -1,5 +1,28 @@
+import { useEffect, useState } from "react";
 import { Arrow, Button } from "./ui";
+
+const navItems = [
+  ["#work", "Work"],
+  ["#results", "Results"],
+  ["#services", "Services"],
+  ["#pricing", "Pricing"],
+  ["#about", "About"],
+];
+
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <header className="site-header">
       <div className="header">
@@ -7,19 +30,47 @@ export default function Header() {
           <i className="header__mark" />
           <span className="header__identity">
             <strong>NICK ANNEN</strong>
-            <small>Shopify CRO &amp; Growth Development</small>
+            <small>Shopify CRO &amp;<br className="hide-desktop"/> Growth Development</small>
           </span>
         </a>
-        <nav className="header__nav" aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#results">Results</a>
-          <a href="#services">Services</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#about">About</a>
+        <nav
+          className="header__nav header__nav--desktop"
+          aria-label="Primary navigation"
+        >
+          {navItems.map(([href, label]) => (
+            <a href={href} key={href}>
+              {label}
+            </a>
+          ))}
         </nav>
         <Button>
           Start a project <Arrow />
         </Button>
+        <button
+          className="header__menu-toggle"
+          type="button"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav
+          className={`header__nav header__nav--mobile${isMenuOpen ? " is-open" : ""}`}
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+        >
+          {navItems.map(([href, label]) => (
+            <a href={href} key={href} onClick={closeMenu}>
+              {label}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   );

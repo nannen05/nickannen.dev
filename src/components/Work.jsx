@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "../data/projects";
 import { Arrow, Eyebrow, MarkReveal } from "./ui";
 
@@ -25,9 +26,9 @@ function ProjectGallery({ project, activeSlide, onNavigate }) {
       </span>
       {slides.length > 1 && (
         <span className="project-preview__controls">
-          <button type="button" onClick={() => onNavigate(activeSlide - 1, true)} aria-label="Previous project screen"><Arrow /></button>
+          <button type="button" onClick={() => onNavigate(activeSlide - 1, true)} aria-label="Previous project screen"><ChevronLeft /></button>
           <em>{activeSlide + 1}/{slides.length}</em>
-          <button type="button" onClick={() => onNavigate(activeSlide + 1, true)} aria-label="Next project screen"><Arrow /></button>
+          <button type="button" onClick={() => onNavigate(activeSlide + 1, true)} aria-label="Next project screen"><ChevronRight /></button>
         </span>
       )}
     </div>

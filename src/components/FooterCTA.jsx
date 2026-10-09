@@ -5,7 +5,7 @@ export default function FooterCTA() {
       <div>
         <Eyebrow>READY TO SHIP?</Eyebrow>
         <h2>
-          Let's build something that <MarkReveal>converts.</MarkReveal>
+          Let's build something that <MarkReveal revealOffset={160}>converts.</MarkReveal>
         </h2>
         <p>
           Whether you've got one experiment ready to build or an entire backlog,

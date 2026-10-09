@@ -1,5 +1,5 @@
 import { pricing } from "../data/projects";
-import { Button, Eyebrow } from "./ui";
+import { Arrow, Button, Eyebrow } from "./ui";
 export default function Pricing() {
   return (
     <section id="pricing" className="pricing section">
@@ -32,7 +32,7 @@ export default function Pricing() {
                 <li key={item}>✓ {item}</li>
               ))}
             </ul>
-            <Button secondary={!plan.popular}>{plan.cta}</Button>
+            <Button secondary={!plan.popular}>{plan.cta} <Arrow /></Button>
           </article>
         ))}
       </div>

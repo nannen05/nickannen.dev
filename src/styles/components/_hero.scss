@@ -78,6 +78,7 @@ h1 {
   border: 1px solid #e7e8e8;
   border-radius: 9px;
   box-shadow: var(--shadow);
+  pointer-events: none;
 }
 .mumu-template picture,
 .mumu-template img { display: block; width: 100%; height: 100%; }

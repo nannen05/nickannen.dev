@@ -226,10 +226,14 @@
       cursor: pointer;
     }
 
-    button:first-child span {
-      display: inline-block;
-      transform: rotate(180deg);
-    }
+    svg { 
+        width: 12px;
+        transform: translateY(-5px);
+     }
+
+    button:hover { color: var(--accent); border-color: currentColor; }
+
+    button:focus-visible { outline: 2px solid rgba(36, 107, 253, .45); outline-offset: 2px; }
 
     em {
       min-width: 23px;
