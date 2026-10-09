@@ -47,7 +47,7 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-    padding: 29px;
+    padding: 30px 20px;
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 14px;
@@ -79,7 +79,7 @@
 
     strong {
       display: block;
-      font: 800 39px/1 Manrope;
+      font: 800 34px/1 Manrope;
       letter-spacing: -0.08em;
     }
 
@@ -137,5 +137,10 @@
 
 @media (min-width: 1280px) {
   .pricing__grid { grid-template-columns: repeat(3, 1fr); }
-  .pricing__card { min-height: 420px; }
+  .pricing__card { min-height: 420px; padding: 30px;  }
+   .pricing strong {
+      display: block;
+      font: 800 40px/1 Manrope;
+      letter-spacing: -0.08em;
+    }
 }
