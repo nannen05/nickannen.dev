@@ -21,6 +21,21 @@ export default function Header() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const { body, documentElement } = document;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverflow = documentElement.style.overflow;
+    body.style.overflow = "hidden";
+    documentElement.style.overflow = "hidden";
+
+    return () => {
+      body.style.overflow = previousBodyOverflow;
+      documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [isMenuOpen]);
+
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
@@ -30,7 +45,10 @@ export default function Header() {
           <i className="header__mark" />
           <span className="header__identity">
             <strong>NICK ANNEN</strong>
-            <small>Shopify CRO &amp;<br className="hide-desktop"/> Growth Development</small>
+            <small>
+              Shopify CRO &amp;
+              <br className="hide-desktop" /> Growth Development
+            </small>
           </span>
         </a>
         <nav
