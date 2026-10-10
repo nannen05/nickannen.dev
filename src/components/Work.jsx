@@ -95,9 +95,7 @@ export default function Work() {
         <div>
           <Eyebrow>SELECTED WORK</Eyebrow>
           <h2>
-            A closer look at Shopify work
-            <br className="hide-small" />
-            built for <MarkReveal>real brands.</MarkReveal>
+            A closer look at Shopify work<br className="hide-small" /> built for <MarkReveal>real brands.</MarkReveal>
           </h2>
           <p className="work__intro">
             A selection of storefront features, test variations, and custom purchase experiences. Use the labels on each project to see what was built.
