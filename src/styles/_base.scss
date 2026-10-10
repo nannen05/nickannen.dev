@@ -10,12 +10,14 @@
   --border: #e8e8e5;
   --dark: #111827;
   --shadow: 0 15px 35px rgba(25, 35, 55, 0.08);
+  --anchor-offset: 40px;
 }
 * {
   box-sizing: border-box;
 }
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset);
   overflow-x: clip;
 }
 body {
@@ -103,6 +105,7 @@ mark {
   .section { width: min(100% - 48px, 700px); }
 }
 @media (min-width: 1024px) {
+  :root { --anchor-offset: 30px; }
   .section { width: min(1340px, calc(100% - 80px)); }
 }
 .eyebrow {
