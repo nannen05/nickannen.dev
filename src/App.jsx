@@ -1,3 +1,4 @@
+import { useState } from "react";
 import About from "./components/About";
 import AgencyCallout from "./components/AgencyCallout";
 import FooterCTA from "./components/FooterCTA";
@@ -13,11 +14,14 @@ import ValueProps from "./components/ValueProps";
 import Work from "./components/Work";
 import ContactOverlay from "./components/ContactOverlay";
 import ExperimentResults from "./components/ExperimentResults";
+import { shouldHidePricing } from "./lib/pricingVisibility";
 
 function App() {
+  const [hidePricing] = useState(shouldHidePricing);
+
   return (
     <>
-      <Header />
+      <Header showPricing={!hidePricing} />
       <main id="top">
         <Hero />
         <LogoStrip />
@@ -27,7 +31,7 @@ function App() {
         <ExperimentResults />
         <ValueProps />
         <Services />
-        <Pricing />
+        {!hidePricing && <Pricing />}
         <AgencyCallout />
         <Process />
         <About />

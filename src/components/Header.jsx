@@ -9,8 +9,11 @@ const navItems = [
   ["#about", "About"],
 ];
 
-export default function Header() {
+export default function Header({ showPricing = true }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const visibleNavItems = showPricing
+    ? navItems
+    : navItems.filter(([href]) => href !== "#pricing");
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -58,7 +61,7 @@ export default function Header() {
             className="header__nav header__nav--desktop"
             aria-label="Primary navigation"
           >
-            {navItems.map(([href, label]) => (
+            {visibleNavItems.map(([href, label]) => (
               <a href={href} key={href}>
                 {label}
               </a>
@@ -88,7 +91,7 @@ export default function Header() {
         id="mobile-navigation"
         aria-label="Mobile navigation"
       >
-        {navItems.map(([href, label]) => (
+        {visibleNavItems.map(([href, label]) => (
           <a href={href} key={href} onClick={closeMenu}>
             {label}
           </a>
