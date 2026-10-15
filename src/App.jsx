@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import About from "./components/About";
 import AgencyCallout from "./components/AgencyCallout";
 import FooterCTA from "./components/FooterCTA";
@@ -15,11 +15,14 @@ import Work from "./components/Work";
 import ContactOverlay from "./components/ContactOverlay";
 import ExperimentResults from "./components/ExperimentResults";
 import { getPortfolioVariant } from "./lib/pricingVisibility";
+import { trackOutreachVisit } from "./lib/outreachTracking";
 
 function App() {
   const [portfolioVariant] = useState(getPortfolioVariant);
   const hidePricing = portfolioVariant === "1";
   const resultsFirst = portfolioVariant === "2";
+
+  useEffect(() => trackOutreachVisit(), []);
 
   return (
     <>

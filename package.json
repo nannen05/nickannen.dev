@@ -5,10 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:vercel": "vercel dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "outreach": "node server/index.mjs",
+    "outreach:worker": "node server/worker.mjs",
+    "test": "node --test server/**/*.test.mjs",
+    "vercel:build": "vercel build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
     "@tailwindcss/vite": "latest",
     "@vitejs/plugin-react": "latest",
     "lucide-react": "^1.52.0",
@@ -19,6 +25,7 @@
     "vite": "latest"
   },
   "devDependencies": {
-    "prettier": "^3.9.9"
+    "prettier": "^3.9.9",
+    "vercel": "^64.2.0"
   }
 }
