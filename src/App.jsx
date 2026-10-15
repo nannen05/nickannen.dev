@@ -14,21 +14,23 @@ import ValueProps from "./components/ValueProps";
 import Work from "./components/Work";
 import ContactOverlay from "./components/ContactOverlay";
 import ExperimentResults from "./components/ExperimentResults";
-import { shouldHidePricing } from "./lib/pricingVisibility";
+import { getPortfolioVariant } from "./lib/pricingVisibility";
 
 function App() {
-  const [hidePricing] = useState(shouldHidePricing);
+  const [portfolioVariant] = useState(getPortfolioVariant);
+  const hidePricing = portfolioVariant === "1";
+  const resultsFirst = portfolioVariant === "2";
 
   return (
     <>
-      <Header showPricing={!hidePricing} />
+      <Header showPricing={!hidePricing} resultsFirst={resultsFirst} />
       <main id="top">
         <Hero />
         <LogoStrip />
         <Intro />
         <Stats />
-        <Work />
-        <ExperimentResults />
+        {resultsFirst ? <ExperimentResults /> : <Work />}
+        {resultsFirst ? <Work /> : <ExperimentResults />}
         <ValueProps />
         <Services />
         {!hidePricing && <Pricing />}

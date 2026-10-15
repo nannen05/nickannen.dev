@@ -9,11 +9,17 @@ const navItems = [
   ["#about", "About"],
 ];
 
-export default function Header({ showPricing = true }) {
+export default function Header({ showPricing = true, resultsFirst = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const visibleNavItems = showPricing
+  const pricingAdjustedNavItems = showPricing
     ? navItems
     : navItems.filter(([href]) => href !== "#pricing");
+  const visibleNavItems = resultsFirst
+    ? [
+        ...pricingAdjustedNavItems.filter(([href]) => href === "#results"),
+        ...pricingAdjustedNavItems.filter(([href]) => href !== "#results"),
+      ]
+    : pricingAdjustedNavItems;
 
   useEffect(() => {
     const closeOnEscape = (event) => {

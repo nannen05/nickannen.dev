@@ -58,7 +58,7 @@
 .experiment-chart.is-animated .experiment-chart__bar-group small { opacity: 1; }
 
 @media (min-width: 640px) {
-  .experiments { padding: 90px 0 0; }
+  .experiments { padding: 90px 0 30px; }
   .experiment-slide { padding: 27px; }
   .experiment-slide__header h3 { font-size: 28px; }
   .experiment-slide__charts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
