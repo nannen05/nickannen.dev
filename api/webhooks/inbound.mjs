@@ -17,6 +17,22 @@ const htmlFromDataUri = (value) => {
   const payload = source.slice(comma + 1);
   try { return /;base64/i.test(source.slice(0, comma)) ? Buffer.from(payload, "base64").toString("utf8") : decodeURIComponent(payload); } catch { return ""; }
 };
+const decodeQuotedPrintable = (value) => String(value || "").replace(/=\r?\n/g, "").replace(/=([A-Fa-f0-9]{2})/g, (_, hex) => String.fromCharCode(Number.parseInt(hex, 16)));
+const textFromRawEmail = (raw) => {
+  const parts = String(raw || "").split(/\r?\n(?=--)/);
+  const part = parts.find((item) => /content-type:\s*text\/plain/i.test(item));
+  if (!part) return "";
+  const splitAt = part.search(/\r?\n\r?\n/);
+  if (splitAt < 0) return "";
+  const headers = part.slice(0, splitAt);
+  const body = part.slice(splitAt).replace(/^\r?\n\r?\n/, "").replace(/\r?\n--[\s\S]*$/, "");
+  if (/content-transfer-encoding:\s*base64/i.test(headers)) return Buffer.from(body.replace(/\s/g, ""), "base64").toString("utf8").trim();
+  return decodeQuotedPrintable(body).trim();
+};
+const usefulText = (value, subject) => {
+  const text = String(value || "").trim();
+  return text && text !== String(subject || "").trim() ? text : "";
+};
 const equal = (left, right) => {
   const a = Buffer.from(left); const b = Buffer.from(right);
   return a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -48,7 +64,7 @@ function verifiedByResend(req, body) {
     const [version, value] = part.split(","); return version === "v1" && value && equal(value, expected);
   });
 }
-async function forwardReplyToInbox(event, sender, fallbackText, originalMessage = null) {
+async function forwardReplyToInbox(event, sender, fallbackText) {
   const recipient = email(process.env.OUTREACH_REPLY_NOTIFICATION_TO);
   if (!recipient) return false;
   let received = null;
@@ -59,10 +75,18 @@ async function forwardReplyToInbox(event, sender, fallbackText, originalMessage 
     else console.warn("[inbound-webhook] could not retrieve inbound body for forwarding", { status: response.status });
   }
   const subject = received?.subject || event.data?.subject || "New outreach reply";
-  const text = received?.text || fallbackText || "Open Resend to view this reply.";
-  const replyHtml = htmlFromDataUri(received?.html) || `<pre style="white-space:pre-wrap;font:14px/1.5 Arial,sans-serif">${escapeHtml(text)}</pre>`;
-  const originalHtml = originalMessage ? `<hr><p style="font:14px/1.5 Arial,sans-serif"><strong>Original outreach email</strong><br>Subject: ${escapeHtml(originalMessage.subject || "(no subject)")}</p><pre style="white-space:pre-wrap;font:14px/1.5 Arial,sans-serif">${escapeHtml(originalMessage.body_text || "")}</pre>` : "";
-  const html = `<p style="font:14px/1.5 Arial,sans-serif"><strong>New outreach reply</strong><br>From: ${escapeHtml(sender)}<br>Subject: ${escapeHtml(subject)}</p><hr><p style="font:14px/1.5 Arial,sans-serif"><strong>Their reply</strong></p>${replyHtml}${originalHtml}`;
+  let rawText = "";
+  if (received?.raw?.download_url) {
+    try {
+      const response = await fetch(received.raw.download_url);
+      if (response.ok) rawText = textFromRawEmail(await response.text());
+    } catch (error) { console.warn("[inbound-webhook] could not retrieve raw inbound body", { message: error.message }); }
+  }
+  const receivedText = usefulText(htmlFromDataUri(received?.text), subject);
+  const text = receivedText || rawText || usefulText(fallbackText, subject) || "Open Resend to view this reply.";
+  const receivedHtml = htmlFromDataUri(received?.html);
+  const replyHtml = rawText || !usefulText(receivedHtml, subject) ? `<pre style="white-space:pre-wrap;font:14px/1.5 Arial,sans-serif">${escapeHtml(text)}</pre>` : receivedHtml;
+  const html = `<p style="font:14px/1.5 Arial,sans-serif"><strong>New outreach reply</strong><br>From: ${escapeHtml(sender)}<br>Subject: ${escapeHtml(subject)}</p><hr>${replyHtml}`;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
@@ -72,7 +96,7 @@ async function forwardReplyToInbox(event, sender, fallbackText, originalMessage 
       reply_to: sender,
       subject: `Reply from ${sender}: ${subject}`,
       html,
-      text: `New outreach reply\nFrom: ${sender}\nSubject: ${subject}\n\nTheir reply:\n${text}${originalMessage ? `\n\n--- Original outreach email ---\nSubject: ${originalMessage.subject || "(no subject)"}\n\n${originalMessage.body_text || ""}` : ""}`,
+      text: `New outreach reply\nFrom: ${sender}\nSubject: ${subject}\n\n${text}`,
     }),
   });
   if (!response.ok) { const detail = await response.json().catch(() => ({})); throw new Error(detail.message || `Reply forwarding failed (${response.status})`); }
@@ -114,10 +138,8 @@ export default async function handler(req, res) {
       try { await forwardReplyToInbox(event, sender, text); } catch (forwardError) { console.error("[inbound-webhook] reply forwarding failed", { message: forwardError.message }); }
       return json(res, 202, { matched: false });
     }
-    const { data: originalMessage, error: originalMessageError } = await db.from("messages").select("subject,body_text").eq("enrollment_id", enrollment.id).eq("direction", "outbound").order("sent_at", { ascending: false }).limit(1).maybeSingle();
-    if (originalMessageError) console.error("[inbound-webhook] original message lookup failed", { message: originalMessageError.message });
     try {
-      const forwarded = await forwardReplyToInbox(event, sender, text, originalMessage);
+      const forwarded = await forwardReplyToInbox(event, sender, text);
       if (forwarded) console.info("[inbound-webhook] reply forwarded to notification inbox", { sender: maskEmail(sender) });
     } catch (forwardError) {
       // A notification failure must never prevent the reply from stopping its sequence.
