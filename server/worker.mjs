@@ -25,7 +25,7 @@ export async function processDueSteps(db, transport = sendResend) {
     const websiteBase = (process.env.OUTREACH_WEBSITE_URL || process.env.OUTREACH_PUBLIC_URL || "https://www.nickannenofficial.com").replace(/\/$/, "");
     const apiBase = (process.env.OUTREACH_API_URL || process.env.OUTREACH_PUBLIC_URL || websiteBase).replace(/\/$/, "");
     const variant = { A: "", B: "?a-b=1", C: "?a-b=2" }[step.website_variant]; const website = `${websiteBase}/${variant}${variant ? "&" : "?"}ref=${step.attribution_token}`;
-    const rendered = renderMessage({ template: step.body, lead: step, websiteUrl: website, unsubscribeUrl: `${apiBase}/api/outreach/unsubscribe/${step.attribution_token}`, postalAddress: process.env.OUTREACH_POSTAL_ADDRESS || "Postal address required before live sending" });
+    const rendered = renderMessage({ template: step.body, lead: step, websiteUrl: website, unsubscribeUrl: `${apiBase}/api/outreach/unsubscribe/${step.attribution_token}`, postalAddress: process.env.OUTREACH_POSTAL_ADDRESS || "" });
     try { const result = await transport({ to: step.email, subject: step.subject, ...rendered, threadId: step.thread_id, dryRun: Boolean(step.dry_run) });
       db.prepare("UPDATE sequence_steps SET status='sent', sent_at=CURRENT_TIMESTAMP, provider_message_id=? WHERE id=?").run(result.id, step.id);
       db.prepare("INSERT INTO messages(enrollment_id,sequence_step_id,direction,provider_message_id,thread_id,subject,body_text,status) VALUES (?,?,'outbound',?,?,?,?,?)").run(step.enrollment_id, step.id, result.id, result.threadId || step.thread_id, step.subject, rendered.text, "sent");

@@ -18,9 +18,10 @@ create table if not exists audit_logs (id bigint generated always as identity pr
 insert into campaigns(name,kind) values ('DTC Brands','dtc'),('Shopify / CRO Agencies','agency') on conflict(name) do nothing;
 insert into subject_variants(campaign_id,variant,subject,enabled)
 select c.id,v.variant,v.subject,v.enabled from campaigns c cross join lateral (values
- ('A',case when c.kind='dtc' then 'A little extra Shopify firepower for {{company}}?' else 'Extra Shopify dev support for ?' end,true),
- ('B',case when c.kind='dtc' then 'Helping move faster on Shopify' else 'Need another developer without another hire?' end,true),
- ('C','Extra Shopify dev capacity?',false),('D','Who handles Shopify development at {{company}}?',false)
+ ('A',case when c.kind='dtc' then 'Quick question about {{company}}''s Shopify store' else 'Extra Shopify dev support for ?' end,true),
+ ('B',case when c.kind='dtc' then 'More Shopify projects than dev capacity?' else 'Need another developer without another hire?' end,true),
+ ('C',case when c.kind='dtc' then 'Extra Shopify dev support for {{company}}?' else 'Extra Shopify dev capacity?' end,true),
+ ('D',case when c.kind='dtc' then 'More Shopify ideas than dev capacity?' else 'Who handles Shopify development at {{company}}?' end,true)
 ) as v(variant,subject,enabled) on conflict(campaign_id,variant) do nothing;
 
 insert into templates(campaign_id,step_number,body)
@@ -31,7 +32,7 @@ I'm Nick, a Shopify developer helping ecommerce brands build better shopping exp
 
 I work on everything from custom PDPs, landing pages, and storefront functionality to A/B testing, subscription experiences, and ongoing site improvements.
 
-Whether {{company}} has a growing development backlog, wants to test new ideas, or just needs another experienced developer to help move projects forward, I'd love to see where I could help.
+Whether your team has a growing development backlog, wants to test new ideas, or just needs an extra experienced developer to keep things moving, I'd love to help as a flexible extension of your team without the need to bring on another full-time hire.
 
 You can check out some of my work at {{website_link}}.
 

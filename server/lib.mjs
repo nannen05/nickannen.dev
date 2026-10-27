@@ -31,10 +31,10 @@ export const TEMPLATES = [
 ];
 
 // DTC brands get the more detailed initial positioning; agency copy remains unchanged.
-export const DTC_DAY0_TEMPLATE_V1 = `Hey {{first_name}},\n\nI'm Nick, a Shopify developer helping ecommerce brands build better shopping experiences and turn new ideas into live, conversion-focused features.\n\nI work on everything from custom PDPs, landing pages, and storefront functionality to A/B testing, subscription experiences, and ongoing site improvements.\n\nWhether your team has a growing development backlog, wants to test new ideas, or just needs another experienced developer to help move projects forward, I'd love to see where I could help.\n\nYou can check out some of my work at {{website_link}}.\n\nIf you're open to chatting, here's my calendar: {{calendar_link}}.\n\nCheers,\nNick`;
+export const DTC_DAY0_TEMPLATE_V1 = `Hey {{first_name}},\n\nI'm Nick, a Shopify developer helping ecommerce brands build better shopping experiences and turn new ideas into live, conversion-focused features.\n\nI work on everything from custom PDPs, landing pages, and storefront functionality to A/B testing, subscription experiences, and ongoing site improvements.\n\nWhether your team has a growing development backlog, wants to test new ideas, or just needs an extra experienced developer to keep things moving, I'd love to help as a flexible extension of your team without the need to bring on another full-time hire.\n\nYou can check out some of my work at {{website_link}}.\n\nIf you're open to chatting, here's my calendar: {{calendar_link}}.\n\nCheers,\nNick`;
 
 export const DTC_TEMPLATES = [
-  DTC_DAY0_TEMPLATE_V1.replace("Whether your team has a", "Whether {{company}} has a"),
+  DTC_DAY0_TEMPLATE_V1,
   ...TEMPLATES.slice(1),
 ];
 
@@ -78,7 +78,7 @@ export function renderMessage({ template, lead, websiteUrl, unsubscribeUrl, post
   const firstName = clean(lead.first_name) || "there"; const company = clean(lead.company_name) || "your team";
   const text = template.replaceAll("{{first_name}}", firstName).replaceAll("{{company}}", company)
     .replaceAll("{{website_link}}", websiteUrl).replaceAll("{{calendar_link}}", "https://calendly.com/nannen05/30min")
-    + `\n\n—\nNick Annen\n${postalAddress}\nTo stop receiving these emails, unsubscribe: ${unsubscribeUrl}`;
+    + `\n\n${postalAddress}\nTo stop receiving these emails, unsubscribe: ${unsubscribeUrl}`;
   const html = text.split("\n\n").map((p) => `<p>${htmlEscape(p).replace(/(https:\/\/www\.nickannenofficial\.com[^\s<]*)/, `<a href="${htmlEscape(websiteUrl)}">nickannenofficial.com</a>`).replace("https://calendly.com/nannen05/30min", '<a href="https://calendly.com/nannen05/30min">Schedule a quick call</a>').replace(/(https:\/\/[^\s<]*\/unsubscribe\/[^\s<]*)/, `<a href="${htmlEscape(unsubscribeUrl)}">unsubscribe</a>`)}</p>`).join("");
   return { text, html };
 }
