@@ -48,7 +48,7 @@ function verifiedByResend(req, body) {
     const [version, value] = part.split(","); return version === "v1" && value && equal(value, expected);
   });
 }
-async function forwardReplyToInbox(event, sender, fallbackText) {
+async function forwardReplyToInbox(event, sender, fallbackText, originalMessage = null) {
   const recipient = email(process.env.OUTREACH_REPLY_NOTIFICATION_TO);
   if (!recipient) return false;
   let received = null;
@@ -61,7 +61,8 @@ async function forwardReplyToInbox(event, sender, fallbackText) {
   const subject = received?.subject || event.data?.subject || "New outreach reply";
   const text = received?.text || fallbackText || "Open Resend to view this reply.";
   const replyHtml = htmlFromDataUri(received?.html) || `<pre style="white-space:pre-wrap;font:14px/1.5 Arial,sans-serif">${escapeHtml(text)}</pre>`;
-  const html = `<p style="font:14px/1.5 Arial,sans-serif"><strong>New outreach reply</strong><br>From: ${escapeHtml(sender)}<br>Subject: ${escapeHtml(subject)}</p><hr>${replyHtml}`;
+  const originalHtml = originalMessage ? `<hr><p style="font:14px/1.5 Arial,sans-serif"><strong>Original outreach email</strong><br>Subject: ${escapeHtml(originalMessage.subject || "(no subject)")}</p><pre style="white-space:pre-wrap;font:14px/1.5 Arial,sans-serif">${escapeHtml(originalMessage.body_text || "")}</pre>` : "";
+  const html = `<p style="font:14px/1.5 Arial,sans-serif"><strong>New outreach reply</strong><br>From: ${escapeHtml(sender)}<br>Subject: ${escapeHtml(subject)}</p><hr><p style="font:14px/1.5 Arial,sans-serif"><strong>Their reply</strong></p>${replyHtml}${originalHtml}`;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
@@ -71,7 +72,7 @@ async function forwardReplyToInbox(event, sender, fallbackText) {
       reply_to: sender,
       subject: `Reply from ${sender}: ${subject}`,
       html,
-      text: `New outreach reply\nFrom: ${sender}\nSubject: ${subject}\n\n${text}`,
+      text: `New outreach reply\nFrom: ${sender}\nSubject: ${subject}\n\nTheir reply:\n${text}${originalMessage ? `\n\n--- Original outreach email ---\nSubject: ${originalMessage.subject || "(no subject)"}\n\n${originalMessage.body_text || ""}` : ""}`,
     }),
   });
   if (!response.ok) { const detail = await response.json().catch(() => ({})); throw new Error(detail.message || `Reply forwarding failed (${response.status})`); }
@@ -106,18 +107,21 @@ export default async function handler(req, res) {
     }
     console.info("[inbound-webhook] inbound email parsed", { sender: maskEmail(sender) });
     const text = clean([event.data?.subject, event.data?.text, event.data?.html].filter(Boolean).join("\n"));
-    try {
-      const forwarded = await forwardReplyToInbox(event, sender, text);
-      if (forwarded) console.info("[inbound-webhook] reply forwarded to notification inbox", { sender: maskEmail(sender) });
-    } catch (error) {
-      // A notification failure must never prevent the reply from stopping its sequence.
-      console.error("[inbound-webhook] reply forwarding failed", { message: error.message });
-    }
     const db = supabase();
     const { data: enrollment, error } = await db.from("enrollments").select("id,contact_id,contacts!inner(email)").eq("contacts.email", sender).order("id", { ascending: false }).limit(1).maybeSingle();
     if (error || !enrollment) {
       console.warn("[inbound-webhook] no enrollment matched", { sender: maskEmail(sender), databaseError: error?.message || null });
+      try { await forwardReplyToInbox(event, sender, text); } catch (forwardError) { console.error("[inbound-webhook] reply forwarding failed", { message: forwardError.message }); }
       return json(res, 202, { matched: false });
+    }
+    const { data: originalMessage, error: originalMessageError } = await db.from("messages").select("subject,body_text").eq("enrollment_id", enrollment.id).eq("direction", "outbound").order("sent_at", { ascending: false }).limit(1).maybeSingle();
+    if (originalMessageError) console.error("[inbound-webhook] original message lookup failed", { message: originalMessageError.message });
+    try {
+      const forwarded = await forwardReplyToInbox(event, sender, text, originalMessage);
+      if (forwarded) console.info("[inbound-webhook] reply forwarded to notification inbox", { sender: maskEmail(sender) });
+    } catch (forwardError) {
+      // A notification failure must never prevent the reply from stopping its sequence.
+      console.error("[inbound-webhook] reply forwarding failed", { message: forwardError.message });
     }
     const classification = /unsubscribe|remove me|stop emailing/i.test(text) ? "unsubscribe" : /out of office|automatic reply/i.test(text) ? "out_of_office" : /not interested|no thanks/i.test(text) ? "negative" : /interested|book|chat|call/i.test(text) ? "positive" : "review";
     await db.from("replies").insert({ enrollment_id: enrollment.id, sender_email: sender, classification, body: text, automated: classification === "out_of_office" });
