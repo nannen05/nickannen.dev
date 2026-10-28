@@ -33,6 +33,7 @@ const usefulText = (value, subject) => {
   const text = String(value || "").trim();
   return text && text !== String(subject || "").trim() ? text : "";
 };
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 const equal = (left, right) => {
   const a = Buffer.from(left); const b = Buffer.from(right);
   return a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -64,16 +65,25 @@ function verifiedByResend(req, body) {
     const [version, value] = part.split(","); return version === "v1" && value && equal(value, expected);
   });
 }
+async function retrieveReceivedEmail(emailId) {
+  if (!emailId || !process.env.RESEND_API_KEY) return null;
+  let lastStatus = null;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    const response = await fetch(`https://api.resend.com/emails/receiving/${encodeURIComponent(emailId)}`, { headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` } });
+    lastStatus = response.status;
+    if (response.ok) {
+      const received = await response.json();
+      if (received?.text || received?.html || received?.raw?.download_url) return received;
+    }
+    if (attempt < 4) await wait(750);
+  }
+  console.warn("[inbound-webhook] inbound content was unavailable after retries", { lastStatus });
+  return null;
+}
 async function forwardReplyToInbox(event, sender, fallbackText) {
   const recipient = email(process.env.OUTREACH_REPLY_NOTIFICATION_TO);
   if (!recipient) return false;
-  let received = null;
-  const emailId = event.data?.email_id;
-  if (emailId && process.env.RESEND_API_KEY) {
-    const response = await fetch(`https://api.resend.com/emails/receiving/${encodeURIComponent(emailId)}`, { headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` } });
-    if (response.ok) received = await response.json();
-    else console.warn("[inbound-webhook] could not retrieve inbound body for forwarding", { status: response.status });
-  }
+  const received = await retrieveReceivedEmail(event.data?.email_id);
   const subject = received?.subject || event.data?.subject || "New outreach reply";
   let rawText = "";
   if (received?.raw?.download_url) {
