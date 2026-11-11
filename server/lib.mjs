@@ -16,8 +16,8 @@ export const SUBJECTS_BY_CAMPAIGN = {
     ["D", "Who handles Shopify development at {{company}}?"],
   ],
   dtc: [
-    ["A", "A little extra Shopify firepower for {{company}}?"],
-    ["B", "Helping move faster on Shopify"],
+    ["A", "Quick question about {{company}}"],
+    ["B", "Shopify development support for {{company}}"],
     ["C", "Extra Shopify dev capacity?"],
     ["D", "Who handles Shopify development at {{company}}?"],
   ],

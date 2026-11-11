@@ -20,7 +20,8 @@ export default async function handler(req,res) { if (!requireAdmin(req,res)) ret
     const pageSize=Math.min(100,Math.max(10,Number.parseInt(req.query.pageSize,10)||50));
     const search=String(req.query.search||"").trim().slice(0,80).replace(/[^a-zA-Z0-9@._ -]/g,"");
     const sort=req.query.sort === "sequence" ? "sequence" : "updated";
-    const {data,error}=await db.rpc("admin_lead_queue",{search_term:search,page_number:page,rows_per_page:pageSize,order_mode:sort});if(error)throw error;
+    const enrollment=["all","enrolled","not_enrolled"].includes(req.query.enrollment) ? req.query.enrollment : "all";
+    const {data,error}=await db.rpc("admin_lead_queue",{search_term:search,page_number:page,rows_per_page:pageSize,order_mode:sort,enrollment_filter:enrollment});if(error)throw error;
     const total=Number(data?.[0]?.total_count||0);
     const items=(data||[]).map(row=>({
       id:row.id,company_id:row.company_id,first_name:row.first_name,last_name:row.last_name,email:row.email,title:row.title,score:row.score,status:row.status,unsubscribed_at:row.unsubscribed_at,bounced_at:row.bounced_at,paused_at:row.paused_at,created_at:row.created_at,updated_at:row.updated_at,

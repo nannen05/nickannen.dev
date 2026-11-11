@@ -66,18 +66,34 @@ function verifiedByResend(req, body) {
   });
 }
 async function retrieveReceivedEmail(emailId) {
-  if (!emailId || !process.env.RESEND_API_KEY) return null;
+  if (!emailId || !process.env.RESEND_API_KEY) {
+    console.warn("[inbound-webhook] cannot retrieve inbound content", {
+      hasEmailId: Boolean(emailId),
+      hasResendApiKey: Boolean(process.env.RESEND_API_KEY),
+    });
+    return null;
+  }
   let lastStatus = null;
   for (let attempt = 1; attempt <= 4; attempt++) {
     const response = await fetch(`https://api.resend.com/emails/receiving/${encodeURIComponent(emailId)}`, { headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` } });
     lastStatus = response.status;
     if (response.ok) {
       const received = await response.json();
-      if (received?.text || received?.html || received?.raw?.download_url) return received;
+      const hasContent = Boolean(received?.text || received?.html || received?.raw?.download_url);
+      console.info("[inbound-webhook] received-email retrieval succeeded", {
+        attempt,
+        emailId,
+        hasText: Boolean(received?.text),
+        hasHtml: Boolean(received?.html),
+        hasRaw: Boolean(received?.raw?.download_url),
+      });
+      if (hasContent) return received;
+    } else {
+      console.warn("[inbound-webhook] received-email retrieval did not succeed", { attempt, emailId, status: response.status });
     }
     if (attempt < 4) await wait(750);
   }
-  console.warn("[inbound-webhook] inbound content was unavailable after retries", { lastStatus });
+  console.warn("[inbound-webhook] inbound content was unavailable after retries", { emailId, lastStatus });
   return null;
 }
 async function forwardReplyToInbox(event, sender, fallbackText) {
